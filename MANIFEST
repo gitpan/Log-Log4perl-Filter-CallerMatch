@@ -1,0 +1,13 @@
+Changes
+LICENSE
+MANIFEST
+META.json
+META.yml
+Makefile.PL
+dist.ini
+lib/Log/Log4perl/Filter/CallerMatch.pm
+t/00-compile.t
+t/filter.t
+t/release-meta-yaml.t
+t/release-pod-coverage.t
+t/release-pod-syntax.t

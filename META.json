@@ -1,0 +1,32 @@
+{
+   "resources" : {
+      "repository" : "http://github.com/pdonelan/log4perl-filter-callermatch"
+   },
+   "generated_by" : "Dist::Zilla version 1.100711",
+   "meta-spec" : {
+      "version" : 1.4,
+      "url" : "http://module-build.sourceforge.net/META-spec-v1.4.html"
+   },
+   "version" : "1.100830",
+   "name" : "Log-Log4perl-Filter-CallerMatch",
+   "author" : [
+      "Patrick Donelan <pat@patspam.com>"
+   ],
+   "license" : "perl",
+   "build_requires" : {},
+   "requires" : {
+      "Log::Log4perl::Config" : "0",
+      "Carp" : "0",
+      "Test::More" : "0",
+      "perl" : "5.006",
+      "Log::Log4perl::Filter" : "0",
+      "File::Find" : "0",
+      "File::Temp" : "0",
+      "Log::Log4perl" : "0"
+   },
+   "abstract" : "Filter Log4perl messages based on call frames",
+   "configure_requires" : {
+      "ExtUtils::MakeMaker" : "6.11"
+   }
+}
+
