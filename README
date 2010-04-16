@@ -3,18 +3,7 @@ NAME
     call frames
 
 VERSION
-    version 1.100830
-
-SYNOPSIS
-     log4perl.logger = ALL, A1
-     log4perl.appender.A1        = Log::Log4perl::Appender::TestBuffer
-     log4perl.appender.A1.Filter = MyFilter
-     log4perl.appender.A1.layout = Log::Log4perl::Layout::SimpleLayout
-    
-     log4perl.filter.MyFilter                = Log::Log4perl::Filter::CallerMatch
-     log4perl.filter.MyFilter.SubToMatch     = WebGUI::Session::ErrorHandler
-     log4perl.filter.MyFilter.PackageToMatch = Flux::
-     log4perl.filter.MyFilter.StringToMatch  = Operand1
+    version 1.101060
 
 DESCRIPTION
     This Log4perl custom filter checks the call stack using caller() and
@@ -57,6 +46,18 @@ METHODS
   ok
     Decides whether log message should be accepted or not. Refer to
     Log::Log4perl::Filter for more information
+
+USAGE
+     # log.conf
+     log4perl.logger = ALL, A1
+     log4perl.appender.A1        = Log::Log4perl::Appender::TestBuffer
+     log4perl.appender.A1.Filter = MyFilter
+     log4perl.appender.A1.layout = Log::Log4perl::Layout::SimpleLayout
+    
+     log4perl.filter.MyFilter                = Log::Log4perl::Filter::CallerMatch
+     log4perl.filter.MyFilter.SubToMatch     = WebGUI::Session::ErrorHandler
+     log4perl.filter.MyFilter.PackageToMatch = Flux::
+     log4perl.filter.MyFilter.StringToMatch  = Operand1
 
 SEE ALSO
     Log::Log4perl::Filter, Log::Log4perl::Filter::StringMatch,

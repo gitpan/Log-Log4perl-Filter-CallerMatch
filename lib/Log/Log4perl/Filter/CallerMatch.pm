@@ -7,7 +7,9 @@
 # the same terms as the Perl 5 programming language system itself.
 # 
 package Log::Log4perl::Filter::CallerMatch;
-our $VERSION = '1.100830';
+BEGIN {
+  $Log::Log4perl::Filter::CallerMatch::VERSION = '1.101060';
+}
 
 # ABSTRACT:  Filter Log4perl messages based on call frames
 
@@ -52,6 +54,9 @@ sub ok {
     
     foreach my $i ( $self->{MinCallFrame} .. $self->{MaxCallFrame} ) {
         my ( $package, $sub ) = ( caller $i )[ 0, 3 ];
+        # next unless $package;
+        # next unless $sub;
+        # warn "$package - $sub";
         no warnings;
         if ( $sub =~ $s_regex && $package =~ $p_regex && $message =~ $m_regex ) {
             return $self->{AcceptOnMatch};
@@ -71,19 +76,7 @@ Log::Log4perl::Filter::CallerMatch - Filter Log4perl messages based on call fram
 
 =head1 VERSION
 
-version 1.100830
-
-=head1 SYNOPSIS
-
- log4perl.logger = ALL, A1
- log4perl.appender.A1        = Log::Log4perl::Appender::TestBuffer
- log4perl.appender.A1.Filter = MyFilter
- log4perl.appender.A1.layout = Log::Log4perl::Layout::SimpleLayout
-    
- log4perl.filter.MyFilter                = Log::Log4perl::Filter::CallerMatch
- log4perl.filter.MyFilter.SubToMatch     = WebGUI::Session::ErrorHandler
- log4perl.filter.MyFilter.PackageToMatch = Flux::
- log4perl.filter.MyFilter.StringToMatch  = Operand1
+version 1.101060
 
 =head1 DESCRIPTION
 
@@ -130,6 +123,19 @@ Constructor. Refer to L<Log::Log4perl::Filter> for more information
 =head2 ok
 
 Decides whether log message should be accepted or not. Refer to L<Log::Log4perl::Filter> for more information
+
+=head1 USAGE
+
+ # log.conf
+ log4perl.logger = ALL, A1
+ log4perl.appender.A1        = Log::Log4perl::Appender::TestBuffer
+ log4perl.appender.A1.Filter = MyFilter
+ log4perl.appender.A1.layout = Log::Log4perl::Layout::SimpleLayout
+    
+ log4perl.filter.MyFilter                = Log::Log4perl::Filter::CallerMatch
+ log4perl.filter.MyFilter.SubToMatch     = WebGUI::Session::ErrorHandler
+ log4perl.filter.MyFilter.PackageToMatch = Flux::
+ log4perl.filter.MyFilter.StringToMatch  = Operand1
 
 =head1 SEE ALSO
 
