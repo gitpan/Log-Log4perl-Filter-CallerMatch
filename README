@@ -3,7 +3,7 @@ NAME
     call frames
 
 VERSION
-    version 1.101060
+    version 1.200
 
 DESCRIPTION
     This Log4perl custom filter checks the call stack using caller() and
@@ -53,7 +53,7 @@ USAGE
      log4perl.appender.A1        = Log::Log4perl::Appender::TestBuffer
      log4perl.appender.A1.Filter = MyFilter
      log4perl.appender.A1.layout = Log::Log4perl::Layout::SimpleLayout
-    
+
      log4perl.filter.MyFilter                = Log::Log4perl::Filter::CallerMatch
      log4perl.filter.MyFilter.SubToMatch     = WebGUI::Session::ErrorHandler
      log4perl.filter.MyFilter.PackageToMatch = Flux::
@@ -65,7 +65,7 @@ SEE ALSO
     Log::Log4perl::Filter::Boolean
 
 AUTHOR
-      Patrick Donelan <pat@patspam.com>
+    Patrick Donelan <pdonelan@cpan.org>
 
 COPYRIGHT AND LICENSE
     This software is copyright (c) 2010 by Patrick Donelan.

@@ -1,14 +1,6 @@
-# 
-# This file is part of Log-Log4perl-Filter-CallerMatch
-# 
-# This software is copyright (c) 2010 by Patrick Donelan.
-# 
-# This is free software; you can redistribute it and/or modify it under
-# the same terms as the Perl 5 programming language system itself.
-# 
 package Log::Log4perl::Filter::CallerMatch;
 BEGIN {
-  $Log::Log4perl::Filter::CallerMatch::VERSION = '1.101060';
+  $Log::Log4perl::Filter::CallerMatch::VERSION = '1.200';
 }
 
 # ABSTRACT:  Filter Log4perl messages based on call frames
@@ -51,12 +43,15 @@ sub ok {
     my $message = join $Log::Log4perl::JOIN_MSG_ARRAY_CHAR, @{ $p{message} };
 
     my ( $s_regex, $p_regex, $m_regex ) = ( $self->{SubToMatch}, $self->{PackageToMatch}, $self->{StringToMatch} );
-    
+
+    # First climb out of Log4perl's internals (differs depending on whether Boolean is being used etc..
+    my $base = 0;
+    $base++ while caller($base) =~ m/^Log::Log4perl/;
+
     foreach my $i ( $self->{MinCallFrame} .. $self->{MaxCallFrame} ) {
-        my ( $package, $sub ) = ( caller $i )[ 0, 3 ];
-        # next unless $package;
-        # next unless $sub;
-        # warn "$package - $sub";
+        my ( $package, $sub ) = ( caller $i + $base )[ 0, 3 ];
+        next unless $package;
+        next unless $sub;
         no warnings;
         if ( $sub =~ $s_regex && $package =~ $p_regex && $message =~ $m_regex ) {
             return $self->{AcceptOnMatch};
@@ -76,7 +71,7 @@ Log::Log4perl::Filter::CallerMatch - Filter Log4perl messages based on call fram
 
 =head1 VERSION
 
-version 1.101060
+version 1.200
 
 =head1 DESCRIPTION
 
@@ -131,7 +126,7 @@ Decides whether log message should be accepted or not. Refer to L<Log::Log4perl:
  log4perl.appender.A1        = Log::Log4perl::Appender::TestBuffer
  log4perl.appender.A1.Filter = MyFilter
  log4perl.appender.A1.layout = Log::Log4perl::Layout::SimpleLayout
-    
+
  log4perl.filter.MyFilter                = Log::Log4perl::Filter::CallerMatch
  log4perl.filter.MyFilter.SubToMatch     = WebGUI::Session::ErrorHandler
  log4perl.filter.MyFilter.PackageToMatch = Flux::
@@ -147,7 +142,7 @@ L<Log::Log4perl::Filter::Boolean>
 
 =head1 AUTHOR
 
-  Patrick Donelan <pat@patspam.com>
+Patrick Donelan <pdonelan@cpan.org>
 
 =head1 COPYRIGHT AND LICENSE
 
